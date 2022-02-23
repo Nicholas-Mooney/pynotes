@@ -1,5 +1,7 @@
 import pygame, os
+import copy
 
+from random import randint
 from constants import SCREEN_HEIGHT, SCREEN_WIDTH
 
 class Ball(pygame.sprite.Sprite):
@@ -9,14 +11,45 @@ class Ball(pygame.sprite.Sprite):
         self.image = pygame.image.load(os.path.join('','ball.png'))
         self.rect = self.image.get_rect()
         self.rect.center = position
-        self.velocity = [7,7]
+        self.new_velocity = [randint(1,5),randint(1,5)]
+        self.old_velocity = [2,2]
+        self.mass = randint(1,5)
+        self.ballID = "id:" + str(randint(1,50))
 
-    def update(self):
+    def update(self, ball_list):
+        #BALLS
+        self.collide(ball_list)
+        #WALLS
         if self.rect.left < 0 or self.rect.right > SCREEN_WIDTH:
-            self.velocity[0] *= -1
+            self.new_velocity[0] *= -1
         if self.rect.top < 0 or self.rect.bottom > SCREEN_HEIGHT:
-            self.velocity[1] *= -1
-        self.rect.move_ip(self.velocity)
+            self.new_velocity[1] *= -1
+    def moveNow(self):
+        self.rect.move_ip(self.new_velocity)
+
+    def collide(self,ball_list):
+        self.old_velocity = copy.deepcopy(self.new_velocity)
+        for ball in ball_list:
+            if ball is not self:
+                if self.rect.colliderect(ball.rect):
+                    self.compute_collision(ball)
+    def compute_collision(self,other_ball):
+        print("collide" + self.ballID)
+        print(other_ball.old_velocity)
+        print(self.old_velocity)
+        new_y = ((self.old_velocity[1] * (self.mass - other_ball.mass)) + \
+                (2 * other_ball.mass * other_ball.old_velocity[1])) // \
+                (self.mass + other_ball.mass)
+        new_x = ((self.old_velocity[0] * (self.mass - other_ball.mass)) + \
+                (2 * other_ball.mass * other_ball.old_velocity[0])) // \
+                (self.mass + other_ball.mass)
+        max = 12
+        if(new_x > max):
+            new_x = max
+        if(new_y > max):
+            new_y = max
+        self.new_velocity = [new_x,new_y]
+        print(self.new_velocity)
 '''
 class Ball(pygame.sprite.Sprite):
     def __init__(self, target_surface, position, mass = 3):

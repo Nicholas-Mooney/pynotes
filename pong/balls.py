@@ -26,11 +26,11 @@ def main():
     #addBalls
     ball_list = pygame.sprite.RenderPlain()
     for loop_control in range(0, DEFAULT_BALL_NUM):
-        ball_list.add(Ball(main_surface,(randint(0+20, SCREEN_WIDTH-20), randint(0+20, SCREEN_HEIGHT-20)) ))
+        ball_list.add(Ball(main_surface,(randint(0+50, SCREEN_WIDTH-50), randint(0+50, SCREEN_HEIGHT-50)) ))
 
     #welcome text
     display_text(main_surface, "welcome", 50,RED,300,200)
-    pygame.time.wait(2000)
+    pygame.time.wait(200)
 
     step = 1
     while True:
@@ -38,17 +38,22 @@ def main():
             if(event.type == pygame.QUIT):
                 return
         main_surface.fill(BLACK)
-        ball_list.update()
+        print("ROUND===========================================================================================")
+        for ball in ball_list:
+            ball.moveNow()
+
+        ball_list.update(ball_list)
+
         ball_list.draw(main_surface)
+
+        #update old velocity
+        #flag for collision
+        #compute new velocity
+        #move
+
 
         pygame.display.flip()
         main_clock.tick(60)
 
 if(__name__ == "__main__"):
     main()
-
-#update old velocity
-#flag for collision
-#compute new velocity
-#move
-
