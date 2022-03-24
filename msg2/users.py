@@ -3,7 +3,12 @@ from constants import *
 from datetime import date, datetime
 from pymongo import MongoClient
 from constants import *
-        
+
+    # TODO
+    #     def register(self, new_alias: str) -> ChatUser:
+    #     def __restore(self) -> bool:
+    #     def __persist(self):
+
 class ChatUser():
     """ class for users of the chat system. Users must be registered 
     """

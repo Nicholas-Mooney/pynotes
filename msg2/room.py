@@ -9,6 +9,34 @@ from pymongo import MongoClient, ReturnDocument
 from collections import deque
 from constants import *
 
+
+#class ChatRoom(deque):
+    #TODO
+    #   def __get_next_sequence_num(self):
+    #   def put(self, message: ChatMessage = None) -> None:
+    #       overriding parent and setting block to false so we don't wait for messages if there are none
+    #   def get(self) -> ChatMessage:
+    #   def find_message(self, message_text: str) -> ChatMessage:
+    #   def restore(self) -> bool:
+    #   def persist(self):
+    #   def get_messages(self, user_alias: str, num_messages:int=GET_ALL_MESSAGES, return_objects: bool = True):
+    #   def send_message(self, message: str, from_alias: str, mess_props: MessageProperties) -> bool:
+
+#class RoomList():
+    #TODO
+    # def __init__(self, name: str = DEFAULT_ROOM_LIST_NAME) -> None:
+    # def create(self, room_name: str, owner_alias: str, member_list: list = None, room_type: int = ROOM_TYPE_PRIVATE) -> ChatRoom:
+    # def add(self, new_room: ChatRoom):
+    # def find_room_in_metadata(self, room_name: str) -> dict:
+    # def get_rooms(self):
+    # def get(self, room_name: str) -> ChatRoom:
+    # def __find_pos(self, room_name: str) -> int:
+    # def find_by_member(self, member_alias: str) -> list:
+    # def find_by_owner(self, owner_alias: str) -> list:
+    # def remove(self, room_name: str):
+    # def __persist(self):
+    # def __restore(self) -> bool:
+
 MONGO_DB = 'detest'
 #MONGO_DB = 'chatroom'
 logging.basicConfig(filename='chatroom.log', level=logging.DEBUG, filemode='w')
@@ -122,12 +150,14 @@ class RoomList():
     """
     #TODO
     def __init__(self, name: str = DEFAULT_ROOM_LIST_NAME) -> None:
+        self.__room_list = []
         """ Try to restore from mongo 
         """
         pass
 
     #TODO
     def create(self, room_name: str, owner_alias: str, member_list: list = None, room_type: int = ROOM_TYPE_PRIVATE) -> ChatRoom:
+
         pass
 
     #TODO
